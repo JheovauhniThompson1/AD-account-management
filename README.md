@@ -2,7 +2,7 @@
 <img src="https://i.imgur.com/pU5A58S.png" alt="Microsoft Active Directory Logo"/>
 </p>
 
-<h1>Enabling and Unlocking Accounts and Resetting Passwords with Azure VMs</h1>
+<h1>Managing Accounts with Azure VMs</h1>
 This tutorial outlines the Enabling, Unlocking of Accounts and how to Reset Passwords a Pre-made Windows Server Virtual Machine(Azure).<br />
 
 <h2>Environments and Technologies Used</h2>
@@ -17,7 +17,7 @@ This tutorial outlines the Enabling, Unlocking of Accounts and how to Reset Pass
 - Windows Server 2022
 - Windows 10 (21H2)
 
-<h2>High-Level Deployment Steps</h2>
+<h2>High-Level Mangement Steps</h2>
 
 - Installed Active Directory Domain Services on Windows Server VM
 - Created a new forest(can be named virtually anyting, just remember it)
@@ -26,7 +26,7 @@ This tutorial outlines the Enabling, Unlocking of Accounts and how to Reset Pass
 - Allowed "Domain Users" access to Windows 10 VM as non-adminsitrative users.
 - Created a new file and ran a script in Powershell_ISE
 
-<h2>Deployment Steps</h2>
+<h2>Mangement Steps</h2>
 
 <p>
 <img src="https://github.com/user-attachments/assets/4740f8d5-1708-4b31-a84c-309139b7b219"/>
