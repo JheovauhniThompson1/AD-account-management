@@ -61,14 +61,6 @@ To test the new policy, I attempted to log back into Client-1 with 6 failed pass
 <img src="https://github.com/user-attachments/assets/1e4c1b08-273f-4a87-8007-b5ac99214433"/>
 </p>
 <p>
-Going back to the Windows 10 Virtual Machine (now referred to as client-1), I logged in as solaris\jane_admin, opened the Settings application, and searched for "Remote Desktop Settings." Under User Accounts, I clicked on Select users that can remotely access this PC and added Domain users.
-</p>
-<br />
-
-<p>
-<img src="https://github.com/user-attachments/assets/1ec440b6-3e29-4b42-bad1-e79800858ed0"/>
-</p>
-<p>
-Afterwards I logged back into DC-1 as solaris.com\jane_admin, opened PowerShell ISE as an administrator, created a new file, pasted the contents of a pre-made script into it, and saved it as "multiuser_creation." I then ran the script. The script works by randomly generating a total of 7,500 users with random names. However, the users do not have random passwords, as that would be cumbersome to manage. Instead, they all share a single password: Password1.
+Finally, to review my multiple failed attempts, I accessed the Event Viewer as an admin. However, since Client-1 is part of a domain, it prompted me for admin credentials. Despite this, all of my failed attempts were successfully logged.
 </p>
 <br />
