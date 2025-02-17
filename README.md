@@ -19,36 +19,38 @@ This tutorial outlines the Enabling, Unlocking of Accounts and how to Reset Pass
 
 <h2>High-Level Mangement Steps</h2>
 
-- Installed Active Directory Domain Services on Windows Server VM
-- Created a new forest(can be named virtually anyting, just remember it)
-- Created a Domain Admin in Active Directory users and Computers, as well as a Employees Organizational Unit(Future Reference)
-- Created another OU(Organizational Unit) for the Windows 10 VM
-- Allowed "Domain Users" access to Windows 10 VM as non-adminsitrative users.
-- Created a new file and ran a script in Powershell_ISE
+- Got logged into the Windows Server and picked a random user
+- Attempted to login to Client-1 with the wrong password multiple times 
+- Configured Group Policy to restrict users to only 5 failed password attempts
+- Attempted to log back into Client-1 after 6 failed attempts
+- Unlocked Account in DC-1 and attempted to login with the correct password
+- Observed the Logs in Client-1
 
 <h2>Mangement Steps</h2>
 
 <p>
-<img src="https://github.com/user-attachments/assets/4740f8d5-1708-4b31-a84c-309139b7b219"/>
-
+<img src="https://github.com/user-attachments/assets/983b7b8a-5d2d-49c3-8bb8-aa459e43e191"/>
+<img src="https://github.com/user-attachments/assets/d33e3eb3-4ee7-456e-a442-a35e47abbb1e"/>
+  
 </p>
 <p>
-In the first step, I logged into the Windows Server VM, opened Server Manager, clicked on Add Roles and Features, and selected Active Directory Domain Services as the feature I wanted to add. The installation of this feature was then completed on the Windows Server VM. After the installation, I noticed the warning errors that appeared, and then I created a forest called "solaris.com" for Active Directory.
-</p>
-<br />
-
-<p>
-<img src="https://github.com/user-attachments/assets/c95b8609-d44f-40c6-b107-b8e1d2bafc3c"/>
-<img src="https://github.com/user-attachments/assets/6a7db11a-a9c9-4eb4-9d02-b81f508c2e79"/>
-</p>
-<p>
-For this step, I logged back into the Windows Server VM, which had been turned into a Domain Controller (referred to as the Domain Controller from now on) after it restarted. The first noticeable change was that I now had to log in using solaris.com\labuser. I then created a Domain Admin in Active Directory Users and Computers called "Jane Doe" (solaris.com\jane_admin, password: Password1), along with two Organizational Units: _EMPLOYEES and _ADMINS
+For this repository, I first logged into the Domain Controller as jane_admin, opened Active Directory Users and Computers, and then chose a random user from the 7,500 we had previously generated. In this situation, it was the user "luka.jaj". After approximately 10 failed attempts, I didn’t receive any warning for "too many failed attempts" or an account lockout. Given this, I proceeded to configure the group policy to limit failed login attempts to 5 before triggering an account lockout.
 </p>
 <br />
 
+
 <p>
-<img src="https://github.com/user-attachments/assets/d4554470-1d89-490a-92b1-beeb1ddee60c"/>
-<img src="https://github.com/user-attachments/assets/9ee47b7d-9160-4445-81d0-24640d4980d7"/>
+<img src="https://github.com/user-attachments/assets/9b5f1dd2-e27a-4b54-a6e2-ba57cd70b105"/>
+</p>
+<p>
+To configure this specific group policy, I first returned to the Domain Controller and opened Group Policy Management. From there, I navigated to the Default Domain Policy, edited it, and went to Computer Configuration > Policies > Windows Settings > Security Settings > Account Policies > Account Lockout Policy. I opened the policy and set the Account Lockout Threshold to 5, with the other settings applying automatically. Next, I linked the GPO to the _EMPLOYEES Organizational Unit by right-clicking the OU and selecting Link an Existing GPO. To speed up the process, I forced the Group Policy update by opening a command prompt and running gpupdate /force.
+</p>
+<br />
+
+
+<p>
+<img src="https://github.com/user-attachments/assets/df6daf28-77b7-4fab-8e11-5526d50dd09b"/>
+<img src="https://github.com/user-attachments/assets/577f0f5d-c240-4e0a-b150-29279a034f51"/>
 </p>
 <p>
 Back in the Domain Controller, within Active Directory Users and Computers, the Windows 10 VM did indeed show up in the Computers folder. However, I went ahead and created my own Organizational Unit called _CLIENTS and moved the Windows 10 VM from the Computers folder to _CLIENTS.
