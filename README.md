@@ -38,9 +38,8 @@ For this repository, I first logged into the Domain Controller as jane_admin, op
 </p>
 <br />
 
-
 <p>
-<img src="https://github.com/user-attachments/assets/9b5f1dd2-e27a-4b54-a6e2-ba57cd70b105"/>
+<img src="https://github.com/user-attachments/assets/339195b3-7e3b-48f9-a693-98870ee06686"/>
 </p>
 <p>
 To configure this specific group policy, I first returned to the Domain Controller and opened Group Policy Management. From there, I navigated to the Default Domain Policy, edited it, and went to Computer Configuration > Policies > Windows Settings > Security Settings > Account Policies > Account Lockout Policy. I opened the policy and set the Account Lockout Threshold to 5, with the other settings applying automatically. Next, I linked the GPO to the _EMPLOYEES Organizational Unit by right-clicking the OU and selecting Link an Existing GPO. To speed up the process, I forced the Group Policy update by opening a command prompt and running gpupdate /force.
@@ -50,15 +49,16 @@ To configure this specific group policy, I first returned to the Domain Controll
 
 <p>
 <img src="https://github.com/user-attachments/assets/df6daf28-77b7-4fab-8e11-5526d50dd09b"/>
-<img src="https://github.com/user-attachments/assets/577f0f5d-c240-4e0a-b150-29279a034f51"/>
+<img src="https://github.com/user-attachments/assets/1b87ee59-af42-449b-b3d5-bbea4f6db167"/>
 </p>
 <p>
-Back in the Domain Controller, within Active Directory Users and Computers, the Windows 10 VM did indeed show up in the Computers folder. However, I went ahead and created my own Organizational Unit called _CLIENTS and moved the Windows 10 VM from the Computers folder to _CLIENTS.
+To test the new policy, I attempted to log back into Client-1 with 6 failed password attempts, and it worked as expected! Since the policy was functioning properly, I returned to the Domain Controller, re-enabled luka.jaj's account, and successfully logged in with the correct password.
 </p>
 <br />
 
 <p>
-<img src="https://github.com/user-attachments/assets/f5f38b51-f5d0-4286-8228-f60cddb056b6"/>
+<img src="https://github.com/user-attachments/assets/c0b2bc6c-888a-4030-8500-9753350aab70"/>
+<img src="https://github.com/user-attachments/assets/1e4c1b08-273f-4a87-8007-b5ac99214433"/>
 </p>
 <p>
 Going back to the Windows 10 Virtual Machine (now referred to as client-1), I logged in as solaris\jane_admin, opened the Settings application, and searched for "Remote Desktop Settings." Under User Accounts, I clicked on Select users that can remotely access this PC and added Domain users.
